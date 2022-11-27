@@ -1,4 +1,15 @@
-import logo from './logo.svg';
+import React, {useState, useEffect} from "react";
+import customTheme from "./themC";
+import {ChakraProvider, extendTheme} from "@chakra-ui/react";
+import Navbar from ;
+import {Switch, Route} from "react-router-dom";
+import Home from "./";
+import About;
+import Projects;
+import ScrollToTop;
+
+const theme = extendTheme(customeTheme);
+
 import './App.css';
 
 function App() {

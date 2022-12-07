@@ -8,28 +8,48 @@ import About;
 import Projects;
 import ScrollToTop;
 
-const theme = extendTheme(customeTheme);
+const theme = extendTheme(customTheme);
 
-import './App.css';
+const fakeRequest = () =>
+  new Promise ((resolve) => setTimeout(() => resolve(), 2000))
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fakeRequest().then(() => {
+      const loader = document.querySelector(".loader-container");
+      if (loader){
+        loader.remove();
+        setLoading(!loading);
+      }
+    });
+  }, []);
+
+  if (loading){
+    return null;
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider theme = {theme}>
+      <ScrollToTop>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route path = "/about">
+              <About />  
+            </Route>
+
+            <Route path = "/projects">
+              <Projects />  
+            </Route>
+
+            <Route path = "/projects">
+              <Home />  
+            </Route>
+          </Switch>
+        </div>
+      </ScrollToTop>
+    </ChakraProvider>
   );
 }
 
